@@ -3,11 +3,35 @@
 import HomeLink from "@/components/form-ui/HomeLink";
 import { FormInput } from "@/components/form-ui/Inputs";
 import Link from "next/link";
-import { FormEvent } from "react";
+import { redirect } from "next/navigation";
+import { FormEvent, useState } from "react";
 
 const Page = () => {
+  const [message, setMessage] = useState("");
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const fullName = formData.get("fullname");
+    const username = formData.get("username");
+    const password = formData.get("password");
+    const confirmPassword = formData.get("confirmPassword");
+
+    const response = await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ fullName, username, password, confirmPassword }),
+    });
+
+    const { message, success } = await response.json();
+    setMessage(message);
+
+    if (success) {
+      redirect("/login");
+    }
   };
 
   return (
@@ -60,6 +84,9 @@ const Page = () => {
               name="confirmPassword"
             />
 
+            {message && (
+              <p className="text-red-500 font-semibold mb-3">{message}</p>
+            )}
             {/* submit button */}
             <div className="flex items-center justify-between">
               <button

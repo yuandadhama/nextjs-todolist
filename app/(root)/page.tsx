@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-const page = () => {
+const page = async () => {
   return (
     <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white h-screen flex justify-center items-center">
       <div className="container mx-auto px-6 py-16 text-center">

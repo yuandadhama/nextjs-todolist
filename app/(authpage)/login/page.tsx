@@ -2,43 +2,35 @@
 
 import HomeLink from "@/components/form-ui/HomeLink";
 import { FormInput } from "@/components/form-ui/Inputs";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
-import Router from "next/router";
+import { redirect } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 const Page = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordVisible, setPasswordVisible] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-  };
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setMessage("");
 
-    try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
+    const formData = new FormData(e.currentTarget);
+    const username = formData.get("username");
+    const password = formData.get("password");
 
-      if (response.ok) {
-        // Redirect to the desired page or perform any other action
-        Router.push("/dashboard");
-      } else {
-        // Handle error response
-        const data = await response.json();
-        console.error(data.error);
-      }
-    } catch (error) {
-      console.error(error);
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const { success, message } = await response.json();
+    if (success) {
+      redirect("/dashboard");
     }
+
+    setMessage(message);
   };
 
   return (
@@ -50,7 +42,7 @@ const Page = () => {
             Login
           </h2>
           <p className="text-center text-white mb-6">
-            Welcome back Friend! Please login to access your tasks and stay
+            Welcome Friend! Please login to access your tasks and stay
             organized.
           </p>
           <form
@@ -73,6 +65,11 @@ const Page = () => {
               name="password"
             />
 
+            {message && (
+              <p className={`${"text-red-500"} font-semibold mb-3`}>
+                {message}
+              </p>
+            )}
             {/* submit button */}
             <div className="flex items-center justify-between">
               <button
