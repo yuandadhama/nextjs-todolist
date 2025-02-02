@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
+import { Lato, Roboto_Condensed } from "next/font/google";
 import "./globals.css";
+
+const lato = Lato({
+  weight: ["100", "300", "400", "700", "900"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Simple TodoList",
@@ -13,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={lato.className}>{children}</body>
     </html>
   );
 }
