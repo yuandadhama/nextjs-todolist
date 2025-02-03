@@ -1,22 +1,39 @@
 import connectDB from "@/lib/mongodb";
-import User from "@/models/User";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
+import User, { IUser } from "@/models/User";
 
-async function getUserId(): Promise<any> {
-  const cookiesStore = await cookies();
-  return cookiesStore.getAll();
-}
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
-export async function GET(req: Request) {
+export async function GET() {
   await connectDB();
-  const { userId } = await req.json();
 
-  const user = await User.findOne({ _id: userId });
+  const tokenCookie = (await cookies()).get("token");
+  console.log(tokenCookie);
+
+  if (!tokenCookie) {
+    return NextResponse.json({
+      success: false,
+      message: "error getting token cookie",
+    });
+  }
+
+  const payload = jwt.verify(tokenCookie.value, JWT_SECRET) as any;
+  if (!payload || !payload.userId) {
+    return NextResponse.json({
+      success: false,
+      message: "Invalid token, no payload provided",
+    });
+  }
+
+  const { userId } = payload;
+  const { fullName, username } = (await User.findOne({ _id: userId })) as IUser;
 
   return NextResponse.json({
     success: true,
-    username: user?.username,
-    userId: getUserId(),
+    message: "Success",
+    fullName,
+    username,
   });
 }
