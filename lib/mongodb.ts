@@ -16,7 +16,6 @@ if (!cached) {
 
 const options = {
   dbName: process.env.USER_DB as string,
-  useNewUrlParser: true,
   useUnifiedTopology: true,
 } as ConnectOptions;
 

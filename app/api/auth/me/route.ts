@@ -1,34 +1,22 @@
-import { NextResponse } from "next/server";
-import connectDB from "@/lib/mongodb";
-import jwt from "jsonwebtoken";
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import User from "@/models/User";
-import { cookies } from "next/headers";
+import connectDB from "@/lib/mongodb";
 
-const JWT_SECRET = process.env.JWT_SECRET as string;
+export async function GET(req: NextRequest) {
+  const session = await getServerSession(authOptions);
 
-export async function GET() {
+  if (!session || !session.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   await connectDB();
+  const user = await User.findById(session.user.id).select("password"); // Exclude password
 
-  const token = (await cookies()).get("token")?.value;
-
-  if (!token) {
-    return NextResponse.json({ user: null }, { status: 401 });
+  if (!user) {
+    return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 
-  try {
-    const payload = jwt.verify(token, JWT_SECRET) as any;
-    const user = await User.findById(payload.userId);
-
-    if (!user) {
-      return NextResponse.json({ user: null }, { status: 401 });
-    }
-
-    return NextResponse.json({
-      fullName: user.fullName,
-      username: user.username,
-    });
-  } catch (error) {
-    console.error("something went wrong:", error);
-    return NextResponse.json({ user: null }, { status: 500 });
-  }
+  return NextResponse.json(user);
 }

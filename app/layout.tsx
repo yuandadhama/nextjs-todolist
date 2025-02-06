@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Lato, Roboto_Condensed } from "next/font/google";
+import { Lato } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "./contexts/AuthContext";
+import AuthProvider from "@/components/AuthProvider";
 
 const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],

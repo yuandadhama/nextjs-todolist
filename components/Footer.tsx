@@ -78,6 +78,7 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Simple TodoList. All rights
             reserved.
           </p>
+          <p className="text-gray-700">yuandhamap@gmail.com.</p>
         </div>
       </div>
     </footer>

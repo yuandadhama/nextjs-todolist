@@ -2,35 +2,35 @@
 
 import HomeLink from "@/components/form-ui/HomeLink";
 import { FormInput } from "@/components/form-ui/Inputs";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 const Page = () => {
   const [message, setMessage] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setMessage("");
 
     const formData = new FormData(e.currentTarget);
-    const username = formData.get("username");
-    const password = formData.get("password");
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string;
 
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
+    const result = await signIn("credentials", {
+      username,
+      password,
+      redirect: false, // Prevent automatic redirection
     });
 
-    const { success, message } = await response.json();
-    if (success) {
-      redirect("/dashboard");
+    if (result?.error) {
+      setMessage(result.error);
+    } else {
+      console.log("success login successful");
+      router.push("/dashboard"); // Redirect on success
     }
-
-    setMessage(message);
   };
 
   return (
@@ -66,10 +66,9 @@ const Page = () => {
             />
 
             {message && (
-              <p className={`${"text-red-500"} font-semibold mb-3`}>
-                {message}
-              </p>
+              <p className="text-red-500 font-semibold mb-3">{message}</p>
             )}
+
             {/* submit button */}
             <div className="flex items-center justify-between">
               <button
