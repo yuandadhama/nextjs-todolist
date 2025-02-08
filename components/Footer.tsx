@@ -1,7 +1,13 @@
 import React from "react";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-const Footer = () => {
+const Footer = async () => {
+  const session = await getServerSession(authOptions);
+  console.log(session?.user.id);
+  const isLogin = !!session;
+
   return (
     <footer className="bg-gray-800 text-white py-8">
       <div className="container mx-auto px-4">
@@ -23,7 +29,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/dashboard"
+                  href={isLogin ? "/dashboard" : "/login"}
                   className="hover:text-gray-300 transition duration-300"
                 >
                   Dashboard

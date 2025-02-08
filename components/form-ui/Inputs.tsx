@@ -6,11 +6,13 @@ export function FormInput({
   name,
   label,
   placeholder,
+  error,
 }: {
   type: string;
   name: string;
   label: string;
   placeholder: string;
+  error: string;
 }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -52,6 +54,7 @@ export function FormInput({
           ""
         )}
       </div>
+      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
     </div>
   );
 }

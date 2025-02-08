@@ -51,7 +51,7 @@ const HeaderClient = ({
             )}
           </div>
           <div className="flex gap-3">
-            {isLogin && isDashboard ? (
+            {isLogin ? (
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
                 className="bg-white text-blue-500 hover:bg-blue-200 px-5 py-3 rounded-md transition-all duration-300 ease-in-out"

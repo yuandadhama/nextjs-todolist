@@ -1,7 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
 
 const page = async () => {
+  const session = await getServerSession();
+  const isLogin = !!session;
+
   return (
     <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white h-screen flex justify-center items-center">
       <div className="container mx-auto px-6 py-16 text-center">
@@ -14,10 +18,10 @@ const page = async () => {
           never miss a deadline again!
         </p>
         <Link
-          href="/register"
+          href={isLogin ? "/dashboard" : "/register"}
           className="bg-white text-purple-600 font-bold py-3 px-8 rounded-full hover:bg-gray-400 transition duration-300"
         >
-          Get Started
+          {isLogin ? "Go to Dashboard" : "Get Started"}
         </Link>
       </div>
     </div>

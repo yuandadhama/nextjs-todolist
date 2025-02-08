@@ -21,7 +21,7 @@ export const authOptions: AuthOptions = {
         await connectDB();
         const user = await User.findOne({ username: credentials.username });
 
-        if (!user) throw new Error("User not found!");
+        if (!user) throw new Error("Username or Password is wrong");
 
         const isValid = await bcrypt.compare(
           credentials.password,

@@ -16,7 +16,6 @@ if (!cached) {
 
 const options = {
   dbName: process.env.USER_DB as string,
-  useUnifiedTopology: true,
 } as ConnectOptions;
 
 async function connectDB() {
