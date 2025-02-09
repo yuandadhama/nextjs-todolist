@@ -6,27 +6,15 @@ import { CheckCircleIcon, XMarkIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 
-interface Errors {
-  fullName: string;
-  username: string;
-  password: string;
-  confirmPassword: string;
-}
-
 const Page = () => {
-  const [errors, setErrors] = useState<Errors>({
-    fullName: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
-  });
-
+  const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    setErrors({}); // Clear previous errors
 
     const formData = new FormData(e.currentTarget);
     const fullName = formData.get("fullName") as string;
@@ -47,33 +35,12 @@ const Page = () => {
       }),
     });
 
-    const { success, message, error } = await response.json();
+    const { success, error } = await response.json();
     setIsSuccess(success);
     setIsLoading(false);
 
     if (!success && error) {
-      setErrors({
-        fullName: error?.fullName?._errors?.[0] || "",
-        username: error?.username?._errors?.[0] || "",
-        password: error?.password?._errors?.[0] || "",
-        confirmPassword: error?.confirmPassword?._errors?.[0] || "",
-      });
-    } else {
-      setErrors({
-        fullName: "",
-        username: message,
-        password: "",
-        confirmPassword: "",
-      });
-    }
-
-    if (message) {
-      setErrors({
-        username: message,
-        fullName: "",
-        password: "",
-        confirmPassword: "",
-      });
+      setErrors(error);
     }
   };
 
@@ -140,7 +107,7 @@ const Page = () => {
                   label="Full Name"
                   name="fullName"
                   placeholder="John Doe"
-                  error={errors.fullName}
+                  error={errors.fullName ? errors.fullName[0] : ""}
                 />
 
                 <FormInput
@@ -148,7 +115,7 @@ const Page = () => {
                   label="Username"
                   name="username"
                   placeholder="johndoe123"
-                  error={errors.username}
+                  error={errors.username ? errors.username[0] : ""}
                 />
 
                 <FormInput
@@ -156,7 +123,7 @@ const Page = () => {
                   label="Password"
                   name="password"
                   placeholder="********"
-                  error={errors.password}
+                  error={errors.password ? errors.password[0] : ""}
                 />
 
                 <FormInput
@@ -164,9 +131,16 @@ const Page = () => {
                   label="Confirm Password"
                   name="confirmPassword"
                   placeholder="********"
-                  error={errors.confirmPassword}
+                  error={
+                    errors.confirmPassword ? errors.confirmPassword[0] : ""
+                  }
                 />
 
+                {errors.global && (
+                  <p className="text-red-500 text-center mb-4">
+                    {errors.global[0]}
+                  </p>
+                )}
                 <div className="flex items-center justify-between">
                   <button
                     className="hover:bg-blue-500 bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"

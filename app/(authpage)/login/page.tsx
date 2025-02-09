@@ -2,36 +2,52 @@
 
 import HomeLink from "@/components/form-ui/HomeLink";
 import { FormInput } from "@/components/form-ui/Inputs";
-import { XMarkIcon } from "@heroicons/react/16/solid";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 const Page = () => {
-  const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setMessage("");
+    setErrors({}); // Clear previous errors
+    setIsLoading(true);
 
     const formData = new FormData(e.currentTarget);
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
 
-    const result = await signIn("credentials", {
-      username,
-      password,
-      redirect: false, // Prevent automatic redirection
-    });
+    try {
+      const result = await signIn("credentials", {
+        username,
+        password,
+        redirect: false, // Prevent automatic redirection
+      });
+      console.log(result);
 
-    if (result?.error) {
-      setMessage(result.error);
-    } else {
-      router.push("/dashboard"); // Redirect on success
-      setIsSuccess(true);
+      if (result?.error) {
+        try {
+          setErrors(JSON.parse(result.error)); // Parse the error from JSON
+        } catch (error) {
+          console.log(error);
+          setErrors({ global: ["Something went wrong. Please try again."] });
+        }
+      } else {
+        setIsSuccess(true);
+        router.push("/dashboard"); // Redirect on success
+      }
+
+      console.log(errors);
+    } catch (error) {
+      console.log(error);
+      setErrors({ global: ["Something went wrong. Please try again."] });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -69,6 +85,7 @@ const Page = () => {
                 label="Username"
                 name="username"
                 placeholder="johndoe123"
+                error={errors.username ? errors.username[0] : ""}
               />
 
               {/* password input area */}
@@ -77,19 +94,21 @@ const Page = () => {
                 label="Password"
                 placeholder="********"
                 name="password"
+                error={errors.password ? errors.password[0] : ""}
               />
 
-              {message && (
-                <p className="text-red-500 font-semibold mb-3">{message}</p>
+              {errors.global && (
+                <p className="text-red-500 text-center mb-4">
+                  {errors.global[0]}
+                </p>
               )}
-
               {/* submit button */}
               <div className="flex items-center justify-between">
                 <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="hover:bg-blue-500 bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   type="submit"
                 >
-                  Login
+                  {isLoading ? "Login . . ." : "Login"}
                 </button>
                 <div className="align-baseline font-bold text-sm text-blue-500 flex gap-2">
                   <p>Don't have an account?</p>

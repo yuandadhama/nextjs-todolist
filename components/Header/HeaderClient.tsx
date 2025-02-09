@@ -54,7 +54,7 @@ const HeaderClient = ({
             {isLogin ? (
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
-                className="bg-white text-blue-500 hover:bg-blue-200 px-5 py-3 rounded-md transition-all duration-300 ease-in-out"
+                className="bg-white text-blue-500 hover:bg-blue-200 px-5 py-3 rounded-md transition-all duration-300 ease-in-out shadow-md"
               >
                 <div className="flex items-center gap-2">
                   <span>Logout</span>
@@ -71,7 +71,7 @@ const HeaderClient = ({
                 </Link>
                 <Link
                   href="/login"
-                  className="bg-white text-blue-500 hover:bg-blue-200 px-5 py-3 rounded-md transition-all duration-300 ease-in-out"
+                  className="bg-white text-blue-500 hover:bg-blue-200 px-5 py-3 rounded-md transition-all duration-300 ease-in-out shadow-md"
                 >
                   <div className="flex items-center">
                     <span>Login</span>

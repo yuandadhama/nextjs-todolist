@@ -27,7 +27,7 @@ async function connectDB() {
   if (!cached.promise) {
     cached.promise = await mongoose.connect(MONGODB_URI, options);
   }
-  console.log(cached.promise);
+
   cached.conn = await cached.promise;
   return cached.conn;
 }

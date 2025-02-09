@@ -5,7 +5,6 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const Footer = async () => {
   const session = await getServerSession(authOptions);
-  console.log(session?.user.id);
   const isLogin = !!session;
 
   return (

@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb"; // Your MongoDB connection helper
 import bcrypt from "bcrypt";
 import User from "@/models/User";
+import { error } from "console";
 
 // Zod validation schema
 const registrationSchema = z
@@ -48,10 +49,9 @@ export async function POST(req: Request) {
     });
 
     if (!parsed.success) {
-      console.log("Connecting to DB");
       return NextResponse.json({
         success: false,
-        error: parsed.error.format(),
+        error: parsed.error.flatten().fieldErrors,
       });
     }
 
@@ -60,7 +60,9 @@ export async function POST(req: Request) {
     if (user) {
       return NextResponse.json({
         success: false,
-        message: "Username already exists",
+        error: {
+          global: ["Username already exists"],
+        },
       });
     }
 
@@ -83,7 +85,9 @@ export async function POST(req: Request) {
     console.error(error);
     return NextResponse.json({
       success: false,
-      message: "Something went wrong. Please try again later.",
+      error: {
+        global: "Something went wrong. Please try again later.",
+      },
     });
   }
 }
