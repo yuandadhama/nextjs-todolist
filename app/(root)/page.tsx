@@ -7,19 +7,19 @@ const page = async () => {
   const isLogin = !!session;
 
   return (
-    <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white h-screen flex justify-center items-center">
+    <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white h-screen max-h-[500px] flex justify-center items-center">
       <div className="container mx-auto px-6 py-16 text-center">
-        <div className="text-4xl md:text-6xl font-bold mb-4">
+        <div className="text-xl md:text-6xl font-bold mb-2">
           <h1>Organize Your Activity and</h1>
           <h1>Organize Your Life</h1>
         </div>
-        <p className="text-xl md:text-2xl mb-8">
+        <p className="text-sm text-gray-300 mb-3">
           Boost your productivity with our intuitive app. Change your life and
           never miss a deadline again!
         </p>
         <Link
           href={isLogin ? "/dashboard" : "/register"}
-          className="bg-white text-purple-600 font-bold py-3 px-8 rounded-full hover:bg-gray-400 transition duration-300"
+          className="bg-white text-purple-600 font-bold text-xs p-2 rounded-full hover:bg-gray-400 transition duration-300"
         >
           {isLogin ? "Go to Dashboard" : "Get Started"}
         </Link>

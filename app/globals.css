@@ -19,3 +19,17 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer components {
+  .btn-login-out {
+    @apply bg-white text-blue-500 hover:bg-blue-200 px-3 rounded-md transition-all duration-300 ease-in-out shadow-md text-sm flex items-center;
+  }
+  .title-footer {
+    @apply text-[16px] leading-3 text-blue-300 font-semibold mb-2;
+  }
+
+  .link-footer {
+    @apply hover:text-gray-300 leading-3 transition duration-300 text-sm;
+  }
+
+}
