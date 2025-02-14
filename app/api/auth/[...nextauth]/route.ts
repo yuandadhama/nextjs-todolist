@@ -28,6 +28,7 @@ export const authOptions: AuthOptions = {
         if (!credentials?.username || !credentials?.password) {
           throw new Error(
             JSON.stringify({
+              // global error to throw in login page
               global: ["Username and password are required"],
             })
           );
@@ -45,6 +46,7 @@ export const authOptions: AuthOptions = {
         if (!user)
           throw new Error(
             JSON.stringify({
+              // global error to throw in login page
               global: ["Username or password is wrong"],
             })
           );
@@ -67,7 +69,14 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
-  session: { strategy: "jwt" },
+  session: {
+    maxAge: 24 * 60 * 60,
+    strategy: "jwt",
+  },
+  jwt: {
+    maxAge: 24 * 60 * 60,
+  },
+
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, user }) {

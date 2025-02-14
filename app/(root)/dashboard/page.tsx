@@ -19,9 +19,7 @@ const page = async () => {
   await connectDB();
 
   // Fetch user data from the database
-  const user = await User.findById(session?.user.id).select(
-    "fullName username"
-  );
+  const user = await User.findById(session?.user.id).select("fullName");
 
   if (!user) {
     console.log("User not found");
@@ -33,7 +31,6 @@ const page = async () => {
       <DashboardPage
         user={{
           fullName: user?.fullName as string,
-          username: user?.username as string,
         }}
       />
     </Suspense>

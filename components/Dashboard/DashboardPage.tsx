@@ -5,7 +5,6 @@ import Link from "next/link";
 interface UserProps {
   user: {
     fullName: string;
-    username: string;
   };
 }
 
