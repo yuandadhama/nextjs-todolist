@@ -42,7 +42,7 @@ const Page = () => {
           }
         } else {
           setIsSuccess(true);
-          router.push("/dashboard"); // Redirect on success
+          router.push("/dashboard/overview"); // Redirect on success
         }
       }
     } catch (error) {

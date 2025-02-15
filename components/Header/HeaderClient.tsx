@@ -21,7 +21,7 @@ const HeaderClient = ({
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
-  const isDashboard = pathname === "/dashboard";
+  const isDashboard = pathname !== "/";
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -34,17 +34,17 @@ const HeaderClient = ({
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.1, ease: "easeOut" }}
-      className={`fixed top-0 left-0 w-full p-2 px-4 transition-all duration-300 ${
+      className={`fixed top-0 left-0 w-full py-3 px-4 sm:py-3 transition-all duration-300 ${
         isScrolled ? "bg-blue-500 shadow-lg" : "bg-transparent"
       }`}
     >
       <div className="flex justify-center">
         <div className="flex justify-between items-center w-full container md:p-4 xl:max-w-[1440px]">
-          <div className="flex h-full items-center gap-3 text-white text-lg font-semibold md:text-3xl xl:text-5xl">
+          <div className="flex h-full items-center gap-1 text-white text-lg font-semibold sm:text-2xl md:text-3xl xl:text-5xl">
             {isDashboard && isLogin ? (
               <>
                 <UserCircleIcon className="w-10" />
-                <div>{username}</div>
+                <div>{username.trim()}</div>
               </>
             ) : (
               "TodoList App"

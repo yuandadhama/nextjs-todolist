@@ -31,7 +31,7 @@ const Footer = async () => {
               </li>
               <li>
                 <Link
-                  href={isLogin ? "/dashboard" : "/login"}
+                  href={isLogin ? "/dashboard/overview" : "/login"}
                   className="link-footer"
                 >
                   Dashboard
