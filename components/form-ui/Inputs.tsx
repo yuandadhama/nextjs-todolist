@@ -22,14 +22,14 @@ export function FormInput({
   return (
     <div className="mb-4">
       <label
-        className="block text-gray-700 text-sm font-bold mb-2"
+        className="block text-gray-700 text-sm font-bold md:text-base lg:text-lg xl:text-xl"
         htmlFor={label}
       >
         {label}
       </label>
       <div className="relative">
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow border rounded w-full p-2 text-gray-700 leading-3 focus:outline-none focus:shadow-outline text-xs md:text-sm lg:text-base xl:text-lg"
           id={label}
           type={
             type === "password" ? (passwordVisible ? "text" : "password") : type
@@ -45,16 +45,20 @@ export function FormInput({
             onClick={togglePasswordVisibility}
           >
             {passwordVisible ? (
-              <EyeIcon className="w-6" />
+              <EyeIcon className="w-5 md:w-6 lg:w-7 xl:w-8" />
             ) : (
-              <EyeSlashIcon className="w-6" />
+              <EyeSlashIcon className="w-5 md:w-6 lg:w-7 xl:w-8" />
             )}
           </button>
         ) : (
           ""
         )}
       </div>
-      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+      {error && (
+        <p className="text-red-500 text-xs leading-3 mt-2 md:text-sm lg:text-base xl:text-lg">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

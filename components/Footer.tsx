@@ -9,13 +9,15 @@ const Footer = async () => {
 
   return (
     <footer className="bg-gray-800 text-white py-8">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 xl:max-w-[1440px]">
         {/* footer content */}
         <div className="flex flex-wrap justify-between items-center">
           {/* title description */}
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
             <h3 className="title-footer">Simple TodoList</h3>
-            <p className="text-sm">Organize your life, one task at a time.</p>
+            <p className="text-sm md:text-base lg:text-lg xl:text-xl">
+              Organize your life, one task at a time.
+            </p>
           </div>
 
           {/* quick links */}
@@ -75,7 +77,7 @@ const Footer = async () => {
         </div>
 
         {/* copyright */}
-        <div className="mt-8 pt-8 border-t border-gray-700 text-center text-xs">
+        <div className="mt-8 pt-8 border-t border-gray-700 text-center text-xs md:text-sm lg:text-base xl:text-lg xxl:text-xl">
           <p>
             &copy; {new Date().getFullYear()} Simple TodoList. All rights
             reserved.

@@ -39,8 +39,8 @@ const HeaderClient = ({
       }`}
     >
       <div className="flex justify-center">
-        <div className="flex justify-between items-center w-full container">
-          <div className="flex h-full items-center gap-3 text-white text-lg font-semibold ">
+        <div className="flex justify-between items-center w-full container md:p-4 xl:max-w-[1440px]">
+          <div className="flex h-full items-center gap-3 text-white text-lg font-semibold md:text-3xl xl:text-5xl">
             {isDashboard && isLogin ? (
               <>
                 <UserCircleIcon className="w-10" />
@@ -65,7 +65,7 @@ const HeaderClient = ({
               <>
                 <Link
                   href="/register"
-                  className="text-white hover:text-gray-400 px-5 py-3 rounded-md transition-all duration-300 ease-in-out text-sm underline underline-offset-1 leading-3 "
+                  className="text-white hover:text-gray-400 px-5 py-3 rounded-md transition-all duration-300 ease-in-out text-sm underline underline-offset-1 leading-3 md:text-base lg:text-xl xl:text-2xl xl:underline-offset-2"
                 >
                   Register
                 </Link>

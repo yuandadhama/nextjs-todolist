@@ -17,8 +17,10 @@ const Redirecting = () => {
 export function HeaderLogin() {
   return (
     <>
-      <h2 className="text-center text-2xl font-bold mb-4 text-white">Login</h2>
-      <p className="text-center text-white mb-6">
+      <h2 className="text-center text-lg font-bold mb-1 text-white md:text-xl md:mb-3 lg:text-2xl xl:text-3xl">
+        Login
+      </h2>
+      <p className="text-center text-xs text-white mb-6 md:text-base lg:text-xl xl:text-2xl">
         Welcome Friend! Please login to access your tasks and stay organized.
       </p>
     </>

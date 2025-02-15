@@ -54,16 +54,16 @@ const Page = () => {
 
   return (
     <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white h-screen flex items-center flex-col">
-      <div className="mt-11">
+      <div className="mt-11 p-3">
         <HomeLink />
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-md relative flex flex-col md:max-w-lg lg:max-w-xl xl:max-w-2xl">
           <HeaderLogin />
 
           {isSuccess ? (
             <Redirecting />
           ) : (
             <form
-              className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+              className="bg-white shadow-md rounded px-4 py-6 mb-4 sm:px-6 md:px-7 lg:px-8 xl:px-10 xl:py-8"
               onSubmit={handleSubmit}
             >
               {/* username input area */}
@@ -85,7 +85,7 @@ const Page = () => {
               />
 
               {errors.global && (
-                <p className="text-red-500 text-center mb-4">
+                <p className="text-red-500 text-center mb-4 text-xs leading-3 mt-2 md:text-sm lg:text-base xl:text-lg">
                   {errors.global[0]}
                 </p>
               )}
@@ -95,7 +95,7 @@ const Page = () => {
             </form>
           )}
 
-          <p className="text-center">
+          <p className="text-center text-xs md:text-base lg:text-lg">
             &copy; {new Date().getFullYear()} Simple TodoList. All rights
             reserved.
           </p>
