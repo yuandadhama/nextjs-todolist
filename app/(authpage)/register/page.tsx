@@ -48,7 +48,7 @@ const Page = () => {
 
   return (
     <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white h-screen flex items-center flex-col">
-      <div className="mt-2 p-4">
+      <div className="mt-2 p-4 md:mt-8">
         <HomeLink />
         <div className="w-full max-w-md relative flex flex-col md:max-w-lg lg:max-w-xl xl:max-w-2xl">
           <h2 className="text-center text-lg font-bold mb-1 text-white md:text-xl md:mb-3 lg:text-2xl xl:text-3xl">

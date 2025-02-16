@@ -29,16 +29,16 @@ const page = async ({ children }: Readonly<{ children: ReactNode }>) => {
 
   return (
     <Suspense fallback={<SkeletonLoader />}>
-      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white h-auto flex flex-col items-center p-3 md:flex-row">
-        <div className="mt-24 flex flex-col mb-10">
-          <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-4 text-gray-800 mb-5">
+      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white h-auto flex flex-col items-center md:flex-row md:px-7 justify-center">
+        <div className="mt-24 md:mt-28 px-4 flex flex-col mb-10 md:w-screen xl:max-w-[1440px]">
+          <div className="w-full bg-white rounded-lg shadow-md p-4 mb-5 md:mb-8 md:w-2/3 lg:w-1/2">
             <DashboardHeader user={user} />
           </div>
-          <div className="w-full max-w-4xl rounded-lg shadow-md text-gray-800">
-            <div className="flex flex-row">
+          <div className="w-auto rounded-lg shadow-md text-gray-800 md:w-full">
+            <div className="flex flex-row md:justify-start">
               <NavLinks />
             </div>
-            <div className="w-full bg-white shadow-md rounded-b-md p-3 text-gray-800 h-[500px]">
+            <div className="w-full bg-white shadow-md rounded-b-md md:rounded-tr-md p-3 text-gray-800 h-[500px]">
               {children}
             </div>
           </div>

@@ -1,4 +1,4 @@
-import mongoose, { ConnectOptions } from "mongoose";
+import mongoose from "mongoose";
 
 // Ambil URI MongoDB dari environment variable
 const MONGODB_URI = process.env.MONGODB_URI as string;
@@ -16,7 +16,7 @@ if (!cached) {
 
 const options = {
   dbName: process.env.USER_DB as string,
-} as ConnectOptions;
+};
 
 async function connectDB() {
   // Jika koneksi sudah ada, langsung kembalikan

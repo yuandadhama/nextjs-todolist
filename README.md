@@ -14,4 +14,5 @@ Learn a lot about some knowledge:
 
 - How to use Next Js
 - How to connect to MongoDB with Mongoose
-- How to send data and get data to Database
+- How to send and get data from Database
+- and a lot more
