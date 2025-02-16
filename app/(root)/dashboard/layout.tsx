@@ -7,6 +7,7 @@ import { ReactNode, Suspense } from "react";
 import SkeletonLoader from "@/components/Dashboard/DashboardLoader";
 import DashboardHeader from "@/components/Dashboard/DashboardHeader";
 import NavLinks from "@/components/Dashboard/NavLinks";
+import Link from "next/link";
 
 const page = async ({ children }: Readonly<{ children: ReactNode }>) => {
   // Get the session from the server
@@ -30,7 +31,7 @@ const page = async ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
     <Suspense fallback={<SkeletonLoader />}>
       <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white h-auto flex flex-col items-center md:flex-row md:px-7 justify-center">
-        <div className="mt-24 md:mt-28 px-4 flex flex-col mb-10 md:w-screen xl:max-w-[1440px]">
+        <div className="mt-24 md:mt-28 px-4 flex flex-col mb-10 sm:mb-14 md:w-screen xl:max-w-[1440px]">
           <div className="w-full bg-white rounded-lg shadow-md p-4 mb-5 md:mb-8 md:w-2/3 lg:w-1/2">
             <DashboardHeader user={user} />
           </div>
@@ -38,8 +39,14 @@ const page = async ({ children }: Readonly<{ children: ReactNode }>) => {
             <div className="flex flex-row md:justify-start">
               <NavLinks />
             </div>
-            <div className="w-full bg-white shadow-md rounded-b-md md:rounded-tr-md p-3 text-gray-800 h-[500px]">
+            <div className="w-full bg-white shadow-md rounded-b-md md:rounded-tr-md p-3 text-gray-800 h-auto pt-5">
               {children}
+              <Link
+                href="/report"
+                className="text-blue-600 text-sm hover:text-blue-300 transition-all duration-300 ease-out"
+              >
+                having an issue?
+              </Link>
             </div>
           </div>
         </div>

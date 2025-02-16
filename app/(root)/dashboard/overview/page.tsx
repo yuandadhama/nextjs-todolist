@@ -1,9 +1,11 @@
+import RecentlyFinished from "@/components/Dashboard/Overview/RecentlyFinished";
 import UpcomingTodos from "@/components/Dashboard/Overview/UpcomingTodos";
 
 const page = async () => {
   return (
-    <main>
-      <UpcomingTodos />
+    <main className="md:p-2">
+      <UpcomingTodos isEmpty={false} />
+      <RecentlyFinished isEmpty={false} />
     </main>
   );
 };

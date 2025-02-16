@@ -6,9 +6,9 @@ const DirectButton = ({ isLogin }: { isLogin: boolean }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <span onClick={() => setIsLoading(true)}>
+    <button onClick={() => setIsLoading(true)} disabled={isLoading}>
       {isLoading ? ". . ." : isLogin ? "Go to Dashboard" : "Get Started"}
-    </span>
+    </button>
   );
 };
 
