@@ -39,14 +39,16 @@ const page = async ({ children }: Readonly<{ children: ReactNode }>) => {
             <div className="flex flex-row md:justify-start">
               <NavLinks />
             </div>
-            <div className="w-full bg-white shadow-md rounded-b-md md:rounded-tr-md p-3 text-gray-800 h-auto pt-5">
+            <div className="w-full bg-white shadow-md rounded-b-md md:rounded-tr-md p-3 text-gray-800 h-auto pt-5 ">
               {children}
-              <Link
-                href="/report"
-                className="text-blue-600 text-sm hover:text-blue-300 transition-all duration-300 ease-out"
-              >
-                having an issue?
-              </Link>
+              <div className="text-right w-full">
+                <Link
+                  href="/report"
+                  className="text-blue-600 text-sm hover:text-blue-300 transition-all duration-300 ease-out"
+                >
+                  having an issue?
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -42,6 +42,11 @@ const Footer = async () => {
                   Login
                 </Link>
               </li>
+              <li>
+                <Link href="/report" className="link-footer">
+                  Report
+                </Link>
+              </li>
             </ul>
           </div>
 

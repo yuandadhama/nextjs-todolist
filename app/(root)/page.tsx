@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { getServerSession } from "next-auth";
 import DirectButton from "@/components/Home";
 
@@ -18,12 +17,7 @@ const page = async () => {
           Boost your productivity with our intuitive app. Change your life and
           never miss a deadline again!
         </p>
-        <Link
-          href={isLogin ? "/dashboard/overview" : "/register"}
-          className="bg-white text-purple-600 font-bold text-xs p-[6px] px-3 rounded-full shadow-lg hover:bg-gray-400 transition duration-300 sm:text-sm md:text-base md:py-3 lg:text-xl lg:px-5 lg:p-3 xl:text-2xl xl:px-6 xl:p-4"
-        >
-          <DirectButton isLogin={isLogin} />
-        </Link>
+        <DirectButton isLogin={isLogin} />
       </div>
     </div>
   );
