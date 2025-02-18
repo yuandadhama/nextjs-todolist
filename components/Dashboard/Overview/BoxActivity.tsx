@@ -40,7 +40,7 @@ export function BoxRecentlyFinished({
   finishedTime: string;
 }) {
   return (
-    <li className="flex items-center justify-between bg-blue-100 shadow-sm rounded-lg p-4 mb-3 hover:shadow-md hover:bg-white transition-all duration-200 ease-out">
+    <li className="flex items-center justify-between bg-blue-100 shadow-sm rounded-lg p-4 mb-3 hover:shadow-md hover:bg-white transition-all duration-300 ease-out">
       <div className="flex flex-col gap-1">
         <div className="font-semibold text-blue-600 line-clamp-1 md:text-lg">
           {todo}

@@ -3,9 +3,9 @@ import UpcomingTodos from "@/components/Dashboard/Overview/UpcomingTodos";
 
 const page = async () => {
   return (
-    <main className="md:p-2">
-      <UpcomingTodos isEmpty={true} />
-      <RecentlyFinished isEmpty={true} />
+    <main className="md:p-3 md:py-2">
+      <UpcomingTodos isEmpty={false} />
+      <RecentlyFinished isEmpty={false} />
     </main>
   );
 };

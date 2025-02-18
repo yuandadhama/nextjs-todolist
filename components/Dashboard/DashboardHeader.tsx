@@ -1,6 +1,6 @@
 import React from "react";
+import { ChartBarSquareIcon } from "@heroicons/react/24/outline";
 
-// Define user type
 interface UserProps {
   user: {
     fullName: string;
@@ -9,18 +9,26 @@ interface UserProps {
 
 const DashboardHeader: React.FC<UserProps> = ({ user }) => {
   return (
-    <>
-      <h1 className="text-2xl font-bold text-gray-700 mb-4 md:text-3xl lg:text-4xl ">
-        Dashboard
-      </h1>
-      <h2 className="text-base mb-2 text-gray-500 font-semibold leading-3 md:text-lg lg:text-xl ">
-        Welcome to your dashboard,{" "}
-        <span className="text-blue-500 text-xl">{user.fullName}</span>
-      </h2>
-      <p className="text-gray-500 text-sm md:text-base lg:text-lg md:mb-4">
-        Here you can manage your tasks, view your progress, and stay organized.
+    <div className="bg-gradient-to-r from-blue-50 to-white rounded-xl p-6 shadow-sm border border-gray-200">
+      <div className="flex items-center gap-4">
+        <ChartBarSquareIcon className="w-10 h-10 text-blue-500 md:w-12 md:h-12" />
+
+        <div>
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700">
+            Dashboard
+          </h1>
+          <h2 className="text-base md:text-lg lg:text-xl text-gray-600 font-medium">
+            Welcome back,{" "}
+            <span className="text-blue-500 font-semibold">{user.fullName}</span>
+            !
+          </h2>
+        </div>
+      </div>
+
+      <p className="mt-3 text-gray-500 text-sm md:text-base lg:text-lg">
+        Manage your tasks, track progress, and stay productive.
       </p>
-    </>
+    </div>
   );
 };
 
