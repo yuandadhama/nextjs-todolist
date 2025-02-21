@@ -1,35 +1,30 @@
 import mongoose from "mongoose";
 
-// Ambil URI MongoDB dari environment variable
-const MONGODB_URI = process.env.MONGODB_URI as string;
+const MONGODB_URI = process.env.MONGODB_URI;
+
 if (!MONGODB_URI) {
-  throw new Error(
-    "Please define the MONGODB_URI environment variable in .env.local"
-  );
+  throw new Error("MONGODB_URI is not defined in environment variables.");
 }
-
-// Untuk caching koneksi (agar di development tidak membuat koneksi baru tiap request)
-let cached = (global as any).mongoose;
-if (!cached) {
-  cached = (global as any).mongoose = { conn: null, promise: null };
-}
-
-const options = {
-  dbName: process.env.USER_DB as string,
-};
 
 async function connectDB() {
-  // Jika koneksi sudah ada, langsung kembalikan
-  if (cached.conn) {
-    return cached.conn;
-  }
-  // Jika belum, buat promise untuk koneksi
-  if (!cached.promise) {
-    cached.promise = await mongoose.connect(MONGODB_URI, options);
+  if (mongoose.connection.readyState === 1) {
+    console.log("Already connected to MongoDB");
+    return;
   }
 
-  cached.conn = await cached.promise;
-  return cached.conn;
+  try {
+    await mongoose.connect(
+      MONGODB_URI as string,
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        serverSelectionTimeoutMS: 10000, // Timeout setelah 10 detik jika tidak dapat menemukan server MongoDB
+      } as any
+    );
+    console.log("Connected to MongoDB");
+  } catch (error) {
+    console.error("MongoDB connection error:", error);
+  }
 }
 
 export default connectDB;

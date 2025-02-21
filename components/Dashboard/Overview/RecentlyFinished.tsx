@@ -1,55 +1,14 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { BoxRecentlyFinished } from "./BoxActivity";
 import { CheckBadgeIcon } from "@heroicons/react/24/outline";
-import { ChevronDownIcon } from "@heroicons/react/16/solid";
 
 const finishedActivities = [
   {
     todo: "Complete Next.js Authentication",
     description: "Implemented OAuth & JWT authentication",
     finishedTime: "Feb 17, 2025 - 12:50 PM",
-  },
-  {
-    todo: "Fix Database Connection Issue",
-    description: "Resolved MongoDB connection timeout errors",
-    finishedTime: "Feb 17, 2025 - 03:30 PM",
-  },
-  {
-    todo: "Deploy App to Vercel",
-    description: "Successfully deployed the production version",
-    finishedTime: "Feb 16, 2025 - 09:45 AM",
-  },
-  {
-    todo: "Complete Next.js Authentication",
-    description: "Implemented OAuth & JWT authentication",
-    finishedTime: "Feb 17, 2025 - 12:50 PM",
-  },
-  {
-    todo: "Fix Database Connection Issue",
-    description: "Resolved MongoDB connection timeout errors",
-    finishedTime: "Feb 17, 2025 - 03:30 PM",
-  },
-  {
-    todo: "Deploy App to Vercel",
-    description: "Successfully deployed the production version",
-    finishedTime: "Feb 16, 2025 - 09:45 AM",
-  },
-  {
-    todo: "Complete Next.js Authentication",
-    description: "Implemented OAuth & JWT authentication",
-    finishedTime: "Feb 17, 2025 - 12:50 PM",
-  },
-  {
-    todo: "Fix Database Connection Issue",
-    description: "Resolved MongoDB connection timeout errors",
-    finishedTime: "Feb 17, 2025 - 03:30 PM",
-  },
-  {
-    todo: "Deploy App to Vercel",
-    description: "Successfully deployed the production version",
-    finishedTime: "Feb 16, 2025 - 09:45 AM",
   },
 ];
 
@@ -69,27 +28,6 @@ const RecentlyFinished = ({ isEmpty }: { isEmpty: boolean }) => {
         return "No todos finished recently";
     }
   };
-
-  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (scrollRef.current) {
-        setShowScrollIndicator(scrollRef.current.scrollTop === 0);
-      }
-    };
-
-    if (scrollRef.current) {
-      scrollRef.current.addEventListener("scroll", handleScroll);
-    }
-
-    return () => {
-      if (scrollRef.current) {
-        scrollRef.current.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, []);
 
   return (
     <div className="mb-5 sm:mb-8 ">
@@ -114,10 +52,7 @@ const RecentlyFinished = ({ isEmpty }: { isEmpty: boolean }) => {
       </div>
 
       <div className="relative">
-        <div
-          ref={scrollRef}
-          className="min-h-[480px] h-auto max-h-[600px] overflow-y-scroll scrollbar-thin scrollbar-track-gray-100"
-        >
+        <div className="min-h-[480px] h-auto max-h-[600px] overflow-y-scroll scrollbar-thin scrollbar-track-gray-100">
           {isEmpty ? (
             <p className="text-gray-500 ml-3 text-sm">{getHintText()}</p>
           ) : (
@@ -133,13 +68,6 @@ const RecentlyFinished = ({ isEmpty }: { isEmpty: boolean }) => {
             </ul>
           )}
         </div>
-
-        {/* Scroll Indicator */}
-        {showScrollIndicator && (
-          <div className="md:hidden absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <ChevronDownIcon className="w-6 h-6 text-gray-400" />
-          </div>
-        )}
       </div>
     </div>
   );

@@ -1,7 +1,10 @@
+"use client";
+
+import MainPage from "@/components/Dashboard/Todos/MainPage";
 import React from "react";
 
-const page = () => {
-  return <div>Todos</div>;
+const Page = () => {
+  return <MainPage isEmpty={false} />;
 };
 
-export default page;
+export default Page;

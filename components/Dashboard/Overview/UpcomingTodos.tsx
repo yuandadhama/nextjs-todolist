@@ -33,7 +33,7 @@ const upcomingActivities = [
 
 const UpcomingTodos = ({ isEmpty }: { isEmpty: boolean }) => {
   return (
-    <div className="min-h-[500px] h-auto mb-8 flex flex-col justify-between">
+    <div className="min-h-[500px] h-auto mb-8 ">
       <div className="flex items-center gap-2">
         <DocumentArrowDownIcon className="w-5 md:w-6" />
         <h1 className="text-gray-700 font-semibold text-xl mb-2 leading-none mt-[6px] md:text-2xl">
@@ -54,7 +54,6 @@ const UpcomingTodos = ({ isEmpty }: { isEmpty: boolean }) => {
       ) : (
         <div className="overflow-auto flex-grow">
           <ul className="flex flex-col gap-3 max-h-[calc(100%-72px)]">
-            {" "}
             {/* Adjust the 72px to suit your spacing needs */}
             {upcomingActivities.map((data, index) => (
               <BoxUpcomingActivity
