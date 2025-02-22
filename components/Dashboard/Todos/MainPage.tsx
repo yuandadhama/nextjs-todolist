@@ -30,23 +30,11 @@ const MainPage = ({ isEmpty }: { isEmpty: boolean }) => {
       </div>
 
       <div className="h-full">
-        {isEmpty ? (
-          <div className="flex items-center justify-center text-gray-600 text-xl">
-            No todos at this date. Add a new one above.
+        <div className="w-full flex justify-center">
+          <div className="w-full">
+            <TodoList />
           </div>
-        ) : (
-          <div className="w-full flex justify-center">
-            <div className="flex justify-around px-3 gap-3 w-full">
-              <div className="w-full">
-                <TodoList hideRightButton />
-              </div>
-              <div className="h-full w-[1px] bg-blue-600 hidden lg:block"></div>
-              <div className="hidden w-full lg:block">
-                <TodoList hideLeftButton />
-              </div>
-            </div>
-          </div>
-        )}
+        </div>
       </div>
     </main>
   );

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -16,10 +16,9 @@ async function connectDB() {
     await mongoose.connect(
       MONGODB_URI as string,
       {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
+        dbName: process.env.USER_DB,
         serverSelectionTimeoutMS: 10000, // Timeout setelah 10 detik jika tidak dapat menemukan server MongoDB
-      } as any
+      } as ConnectOptions
     );
     console.log("Connected to MongoDB");
   } catch (error) {

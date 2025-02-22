@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb"; // Your MongoDB connection helper
 import bcrypt from "bcrypt";
 import User from "@/models/User";
-import { error } from "console";
 
 // Zod validation schema
 const registrationSchema = z

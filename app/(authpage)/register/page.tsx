@@ -37,6 +37,11 @@ const Page = () => {
       }),
     });
 
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(JSON.stringify(data));
+    }
+
     const { success, error } = await response.json();
     setIsSuccess(success);
     setIsLoading(false);

@@ -25,9 +25,9 @@ export default function Error({
       <h1 className="mt-6">
         <button
           onClick={() => handleReset()}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg transition-all duration-300 ease-out"
+          className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 ease-out"
         >
-          {loading ? "redirecting. . ." : "Try Again"}
+          {loading ? "redirecting. . ." : "Go Back to Home"}
         </button>
       </h1>
     </div>
