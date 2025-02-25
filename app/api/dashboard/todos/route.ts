@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/route";
 import User from "@/models/User";
 import Todo from "@/models/Todo";
+import { revalidatePath } from "next/cache";
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
@@ -44,9 +45,10 @@ export async function POST(req: Request) {
     });
 
     await newTodo.save();
+    revalidatePath("/dashboard/todos");
     return NextResponse.json({
       message: "Todo added successfully",
-      todo: newTodo,
+      success: true,
     });
   } catch (error) {
     console.error("Error adding todo:", error);
@@ -67,11 +69,6 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const dateParam = searchParams.get("date");
 
-    console.log("isi date param: " + dateParam);
-    if (!dateParam) {
-      return NextResponse.json({ error: "Date is required" }, { status: 400 });
-    }
-
     // Fetch todos for the given date
     const todos = await Todo.find({ date: dateParam, userId: user?.id }).sort({
       time: 1,
@@ -80,9 +77,6 @@ export async function GET(req: Request) {
     return NextResponse.json(todos);
   } catch (error) {
     console.error("Error fetching todos:", error);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal Server Error" });
   }
 }

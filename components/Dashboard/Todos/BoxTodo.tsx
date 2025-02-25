@@ -5,7 +5,7 @@ export function BoxTodo({ todo }: { todo: ITodo }) {
   return (
     <li
       key={todo.id}
-      className="flex items-center justify-between bg-white shadow-sm rounded-lg p-4 mb-3 hover:shadow-md transition-shadow"
+      className="flex items-center justify-between bg-white shadow-sm rounded-lg p-4 mb-3 hover:shadow-md transition-shadow overflow-hidden "
     >
       <div className="flex flex-2 items-center gap-3">
         <div className="font-semibold text-base text-blue-600 text-center flex-1 md:text-lg">
@@ -15,7 +15,7 @@ export function BoxTodo({ todo }: { todo: ITodo }) {
           <span className="font-medium text-sm line-clamp-1 md:text-base">
             {todo.name}
           </span>
-          <p className="text-xs text-gray-500 line-clamp-2 md:text-sm">
+          <p className="text-xs text-gray-500 line-clamp-2 md:text-sm break-all">
             {todo.description}
           </p>
         </div>
