@@ -12,7 +12,7 @@ First full stack project that I have made by myself (but still need help AI :), 
 
 Learn a lot about some knowledge:
 
-- How to use Next Js
+- How to build fullstack web application with Next Js
 - How to connect to MongoDB with Mongoose
 - How to send and get data from Database
 - and a lot more
