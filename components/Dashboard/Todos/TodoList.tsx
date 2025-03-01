@@ -1,6 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { BoxTodo } from "./BoxTodo";
+import React, { lazy, Suspense, useCallback, useEffect, useState } from "react";
+
 import { ITodo } from "@/models/Todo";
+
+const TodoListPage = lazy(() => import("./TodoList/TodoListPage"));
+import LoadingTodos from "./LoadingTodos";
 
 const TodoList = ({
   refreshTrigger,
@@ -13,6 +16,7 @@ const TodoList = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [todos, setTodos] = useState<ITodo[]>([]);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const formatDateForAPI = (date: Date) => {
     const year = date.getFullYear() as number;
@@ -36,17 +40,17 @@ const TodoList = ({
         );
         setTodos(sortedTodos);
       } else {
-        console.error("Error fetching todos:", data.error);
+        setErrorMsg(data.error);
       }
     } catch (error) {
-      console.error("Fetch error:", error);
+      console.log(error);
     }
     setLoading(false);
   }, [date]);
 
   useEffect(() => {
     fetchTodos();
-  }, [fetchTodos, refreshTrigger]); // Re-fetch todos when refreshTrigger changes
+  }, [fetchTodos, refreshTrigger]);
 
   const goToPreviousDate = useCallback(() => {
     setLoading(true);
@@ -58,7 +62,7 @@ const TodoList = ({
   }, []);
 
   const goToNextDate = useCallback(() => {
-    setLoading(false);
+    setLoading(true);
     setDate((prevDate) => {
       const newDate = new Date(prevDate);
       newDate.setDate(newDate.getDate() + 1);
@@ -98,20 +102,9 @@ const TodoList = ({
       </div>
 
       <div className="h-[500px] overflow-y-auto space-y-4 mt-4">
-        {todos.length > 0 ? (
-          <ul>
-            {todos.map((todo, index) => (
-              <BoxTodo key={index} todo={todo} />
-            ))}
-          </ul>
-        ) : loading ? (
-          <p className="text-center text-gray-600">Loading...</p>
-        ) : (
-          <p className="text-center text-gray-600">
-            You have not made any tasks at this date.
-          </p>
-        )}
+        {loading ? <LoadingTodos /> : <TodoListPage todos={todos} />}
       </div>
+      <p className="text-red-600 text-center">{errorMsg}</p>
     </>
   );
 };

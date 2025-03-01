@@ -14,6 +14,8 @@ export default function Error({
   console.error(error.message);
 
   const handleReset = () => {
+    setloading(true);
+    reset();
     redirect("/");
   };
   return (

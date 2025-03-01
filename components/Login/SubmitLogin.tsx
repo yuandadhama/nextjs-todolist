@@ -7,6 +7,7 @@ const SubmitLogin = ({ isLoading }: { isLoading: boolean }) => {
       <button
         className="hover:bg-blue-500 bg-blue-700 text-white font-bold py-3 px-2 text-sm leading-3 rounded disabled:opacity-50 md:text-base md:px-5 lg:text-lg xl:text-xl"
         type="submit"
+        disabled={isLoading}
       >
         {isLoading ? "Login . . ." : "Login"}
       </button>

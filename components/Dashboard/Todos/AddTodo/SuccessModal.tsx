@@ -21,24 +21,26 @@ const SuccessModal = ({
       exit={{ opacity: 0 }}
     >
       <motion.div
-        className="bg-white p-6 rounded-lg shadow-lg w-full text-center"
+        className="bg-white p-6 rounded-lg shadow-lg w-full text-center max-w-sm md:max-w-[450px] md:h-[400px] md:flex flex-col justify-around"
         initial={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         exit={{ scale: 0.8 }}
       >
         {/* Success Icon */}
         <div className="flex justify-center mb-3">
-          <div className="w-12 h-12 flex items-center justify-center bg-green-100 text-green-600 rounded-full">
+          <div className="w-12 h-12 flex items-center justify-center bg-green-100 text-green-600 rounded-full md:w-16 md:h-16 md:text-lg">
             ✅
           </div>
         </div>
 
         {/* Success Message */}
-        <h2 className="text-lg font-semibold text-green-600">{message}</h2>
+        <h2 className="text-lg font-semibold text-green-600 md:text-xl">
+          {message}
+        </h2>
 
         {/* Task Details */}
-        <div className="mt-3 text-left flex flex-col text-gray-700 text-xs">
-          <p className="text-sm">
+        <div className="mt-3 text-left flex flex-col text-gray-700 text-xs md:text-base">
+          <p className="text-sm md:text-lg">
             <strong>Name:</strong> {name}
           </p>
           <p className="break-all mb-2">

@@ -52,7 +52,7 @@ const AddTodo = ({
     setIsSuccess(success);
     console.log(isSuccess);
 
-    if (isSuccess == false) {
+    if (!isSuccess) {
       console.log("failed");
       setMessage(message);
       setLoading(false);
@@ -72,10 +72,14 @@ const AddTodo = ({
     onTodoAdded();
   };
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-6">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-[400px]">
-        <h2 className="text-lg font-semibold text-gray-700 mb-4  text-center">
-          Adding Todo
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-6 z-10">
+      <div
+        className={`${
+          isSuccess && "bg-transparent"
+        } bg-white p-6 rounded-lg shadow-lg w-full max-w-[400px]`}
+      >
+        <h2 className=" text-lg font-semibold text-gray-700 mb-4 text-center">
+          📝 Adding Todo
         </h2>
 
         {isSuccess ? (
@@ -94,7 +98,7 @@ const AddTodo = ({
               </label>
               <input
                 type="text"
-                className="w-full p-2 border rounded-md outline-none"
+                className="w-full p-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-400 transition-all"
                 placeholder="Study"
                 maxLength={30}
                 value={name}
@@ -109,8 +113,8 @@ const AddTodo = ({
                 Description
               </label>
               <textarea
-                className="w-full h-[100px] resize-none p-2 border rounded-md outline-none"
-                placeholder="Study about adding dynamic modal in next js"
+                className="w-full h-[100px] resize-none p-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+                placeholder="Study about adding dynamic modal in Next.js"
                 maxLength={150}
                 value={description}
                 disabled={loading}
@@ -119,12 +123,12 @@ const AddTodo = ({
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-semibold ">
+              <label className="block text-gray-700 text-sm font-semibold">
                 Time to Do
               </label>
               <input
                 type="datetime-local"
-                className="w-full p-2 border rounded-md outline-none"
+                className="w-full p-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-400 transition-all"
                 value={dateTime}
                 min={formatDateForInput(new Date())}
                 onChange={(e) => setDateTime(e.target.value)}
@@ -133,24 +137,30 @@ const AddTodo = ({
               />
             </div>
 
-            <div className="text-red-600 text-sm mb-2 text-center">
-              {message}
-            </div>
+            {message && (
+              <div className="text-red-600 text-sm mb-2 text-center">
+                {message}
+              </div>
+            )}
 
             <div className="flex justify-end gap-2">
               <button
-                className="px-4 py-2 text-white bg-red-500 hover:bg-red-600 rounded-md"
+                className="px-4 py-2 text-white bg-red-500 hover:bg-red-600 rounded-md transition-all disabled:bg-red-300"
                 onClick={onClose}
                 disabled={loading}
               >
                 Cancel
               </button>
               <button
-                className="px-4 py-2 text-white bg-green-500 rounded-md hover:bg-green-600"
+                className="px-4 py-2 flex items-center justify-center gap-2 text-white bg-green-500 rounded-md hover:bg-green-600 transition-all disabled:bg-green-300"
                 onClick={handleSubmit}
                 disabled={loading}
               >
-                {loading ? "Adding..." : "Add"}
+                {loading ? (
+                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                ) : (
+                  "Add"
+                )}
               </button>
             </div>
           </>

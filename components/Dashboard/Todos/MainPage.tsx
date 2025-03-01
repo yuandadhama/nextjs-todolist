@@ -21,7 +21,7 @@ const MainPage = () => {
   };
 
   return (
-    <main className="mb-8 flex flex-col md:p-6 md:py-4">
+    <main className="mb-8 flex flex-col md:p-6  md:py-4">
       <div className="relative flex justify-center">
         {isModalOpen && (
           <AddTodo

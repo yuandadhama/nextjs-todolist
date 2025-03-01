@@ -11,7 +11,12 @@ export async function POST(req: Request) {
 
   // Fetch user data from the database
   const user = await User.findById(session?.user.id);
-
+  if (!session || !session.user || !session.user.id) {
+    return NextResponse.json(
+      { message: "Unauthorized", success: false },
+      { status: 401 }
+    );
+  }
   try {
     await connectDB();
     const { name, description, dateTime } = await req.json();
@@ -26,9 +31,13 @@ export async function POST(req: Request) {
     const date = dateTime.split("T")[0];
     const time = dateTime.split("T")[1];
 
-    const sameDateAndTime = await Todo.find({ id: user?.id, time, date });
-    if (sameDateAndTime.length > 0) {
-      console.log("same date and time: " + sameDateAndTime);
+    const existingTodo = await Todo.findOne({
+      userId: user?.id,
+      time,
+      date,
+    });
+
+    if (existingTodo) {
       return NextResponse.json({
         message: "A todo with the same time and date already exists",
         success: false,
@@ -52,7 +61,10 @@ export async function POST(req: Request) {
     });
   } catch (error) {
     console.error("Error adding todo:", error);
-    return NextResponse.json({ message: "Internal Server Error" });
+    return NextResponse.json({
+      message: "Internal Server Error",
+      success: false,
+    });
   }
 }
 
@@ -61,6 +73,12 @@ export async function GET(req: Request) {
 
   // Fetch user data from the database
   const user = await User.findById(session?.user.id);
+  if (!session || !session.user || !session.user.id) {
+    return NextResponse.json(
+      { message: "Unauthorized", success: false },
+      { status: 401 }
+    );
+  }
 
   try {
     await connectDB();
@@ -76,7 +94,9 @@ export async function GET(req: Request) {
 
     return NextResponse.json(todos);
   } catch (error) {
-    console.error("Error fetching todos:", error);
-    return NextResponse.json({ error: "Internal Server Error" });
+    return NextResponse.json({
+      error: "Internal Server Error",
+      success: false,
+    });
   }
 }

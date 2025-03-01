@@ -17,7 +17,7 @@ async function connectDB() {
       MONGODB_URI as string,
       {
         dbName: process.env.USER_DB,
-        serverSelectionTimeoutMS: 10000, // Timeout setelah 10 detik jika tidak dapat menemukan server MongoDB
+        ssl: true,
       } as ConnectOptions
     );
     console.log("Connected to MongoDB");
