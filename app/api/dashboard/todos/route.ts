@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/route";
 import User from "@/models/User";
 import Todo from "@/models/Todo";
-import { revalidatePath } from "next/cache";
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
@@ -39,7 +38,7 @@ export async function POST(req: Request) {
 
     if (existingTodo) {
       return NextResponse.json({
-        message: "A todo with the same time and date already exists",
+        message: "The date and time conflict with another todo.",
         success: false,
       });
     }
@@ -54,7 +53,6 @@ export async function POST(req: Request) {
     });
 
     await newTodo.save();
-    revalidatePath("/dashboard/todos");
     return NextResponse.json({
       message: "Todo added successfully",
       success: true,
@@ -93,10 +91,12 @@ export async function GET(req: Request) {
     });
 
     return NextResponse.json(todos);
-  } catch (error) {
+  } catch {
     return NextResponse.json({
       error: "Internal Server Error",
       success: false,
     });
   }
 }
+
+export async function DELETE(req: Request) {}

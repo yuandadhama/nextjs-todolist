@@ -22,7 +22,8 @@ export default function Error({
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-purple-600 to-blue-600 text-white text-center p-4">
       <h1 className="text-6xl font-bold">Oops!</h1>
       <p className="text-xl mt-4">
-        Something went wrong, check your connection or try again later
+        Something went wrong, check your connection, try refresh the page or try
+        again later.
       </p>
       <h1 className="mt-6">
         <button

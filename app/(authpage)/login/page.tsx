@@ -37,8 +37,7 @@ const Page = () => {
         if (result?.error) {
           try {
             setErrors(JSON.parse(result.error)); // Parse the error from JSON
-          } catch (error) {
-            console.log(error);
+          } catch {
             setErrors({ global: ["Something went wrong. Please try again."] });
           }
         } else {
@@ -46,7 +45,7 @@ const Page = () => {
           router.push("/dashboard/overview"); // Redirect on success
         }
       }
-    } catch (error) {
+    } catch {
       setErrors({ global: ["Something went wrong. Please try again."] });
     } finally {
       setIsLoading(false);

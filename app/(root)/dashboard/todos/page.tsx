@@ -4,7 +4,7 @@ import MainPage from "@/components/Dashboard/Todos/MainPage";
 import React from "react";
 
 const Page = () => {
-  return <MainPage isEmpty={false} />;
+  return <MainPage />;
 };
 
 export default Page;

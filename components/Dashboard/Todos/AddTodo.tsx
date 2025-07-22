@@ -1,5 +1,6 @@
+import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
-import SuccessModal from "./AddTodo/SuccessModal";
+const SuccessModal = dynamic(() => import("./AddTodo/SuccessModal"));
 
 const AddTodo = ({
   onClose,
@@ -72,7 +73,7 @@ const AddTodo = ({
     onTodoAdded();
   };
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-6 z-10">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center px-6 z-10">
       <div
         className={`${
           isSuccess && "bg-transparent"
@@ -104,6 +105,7 @@ const AddTodo = ({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 disabled={loading}
+                title="input the name of todo"
                 required
               />
             </div>
@@ -119,6 +121,7 @@ const AddTodo = ({
                 value={description}
                 disabled={loading}
                 onChange={(e) => setDescription(e.target.value)}
+                title="input description or some explanation about the todo"
               />
             </div>
 
@@ -133,6 +136,7 @@ const AddTodo = ({
                 min={formatDateForInput(new Date())}
                 onChange={(e) => setDateTime(e.target.value)}
                 disabled={loading}
+                title="input the date and time to do this todo"
                 required
               />
             </div>

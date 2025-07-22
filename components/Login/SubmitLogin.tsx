@@ -12,7 +12,7 @@ const SubmitLogin = ({ isLoading }: { isLoading: boolean }) => {
         {isLoading ? "Login . . ." : "Login"}
       </button>
       <div className="font-bold text-xs text-blue-500 flex gap-1 md:text-base lg:text-lg xl:text-xl">
-        <p>Don't have an account?</p>
+        <p>Don&apos;t have an account?</p>
         <Link href="/register" className="hover:text-blue-800 underline">
           Register
         </Link>

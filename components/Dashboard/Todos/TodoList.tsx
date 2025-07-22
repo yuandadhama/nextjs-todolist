@@ -1,9 +1,9 @@
-import React, { lazy, Suspense, useCallback, useEffect, useState } from "react";
-
+import React, { useCallback, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { ITodo } from "@/models/Todo";
 
-const TodoListPage = lazy(() => import("./TodoList/TodoListPage"));
-import LoadingTodos from "./LoadingTodos";
+const LoadingTodos = dynamic(() => import("./LoadingTodos"));
+const TodoListPage = dynamic(() => import("./TodoList/TodoListPage"));
 
 const TodoList = ({
   refreshTrigger,
@@ -18,6 +18,7 @@ const TodoList = ({
   const [todos, setTodos] = useState<ITodo[]>([]);
   const [errorMsg, setErrorMsg] = useState("");
 
+  // format date: yyyy-mm-dd
   const formatDateForAPI = (date: Date) => {
     const year = date.getFullYear() as number;
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -59,7 +60,7 @@ const TodoList = ({
       newDate.setDate(newDate.getDate() - 1);
       return newDate;
     });
-  }, []);
+  }, [setDate]);
 
   const goToNextDate = useCallback(() => {
     setLoading(true);
@@ -68,17 +69,19 @@ const TodoList = ({
       newDate.setDate(newDate.getDate() + 1);
       return newDate;
     });
-  }, []);
+  }, [setDate]);
 
   return (
     <>
       <div className="flex justify-between items-center mx-auto mb-4 max-w-[250px]">
         <button
-          className="text-gray-600 hover:text-gray-800 cursor-pointer text-xl disabled:text-gray-400"
+          className={`${
+            formatDateForAPI(date) == formatDateForAPI(new Date())
+              ? "invisible"
+              : ""
+          } text-gray-600 hover:text-gray-800 cursor-pointer text-xl disabled:text-gray-400`}
           onClick={goToPreviousDate}
-          disabled={
-            loading || formatDateForAPI(date) == formatDateForAPI(new Date())
-          }
+          disabled={loading}
         >
           {"<"}
         </button>

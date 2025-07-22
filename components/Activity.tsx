@@ -1,5 +1,4 @@
 import { CheckIcon } from "@heroicons/react/16/solid";
-import React, { act } from "react";
 
 const Activity = ({ activity }: { activity: string }) => {
   return (
