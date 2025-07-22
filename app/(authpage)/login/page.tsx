@@ -38,6 +38,7 @@ const Page = () => {
           try {
             setErrors(JSON.parse(result.error)); // Parse the error from JSON
           } catch (error) {
+            console.log(error);
             setErrors({ global: ["Something went wrong. Please try again."] });
           }
         } else {
