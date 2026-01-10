@@ -29,16 +29,16 @@ export function SuccessfullyRegister({
 }) {
   return (
     <div className="p-4 w-full max-w-md max-h-full">
-      <div className="bg-white rounded-lg shadow-sm dark:bg-gray-700">
-        <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-          <h3 className="text-xl flex items-center font-semibold text-green-500 dark:text-white gap-2 md:text-lg lg:text-xl xl:text-2xl">
+      <div className="bg-white rounded-lg shadow-sm ">
+        <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t  border-gray-200">
+          <h3 className="text-xl flex items-center font-semibold text-green-500 gap-2 md:text-lg lg:text-xl xl:text-2xl">
             Successfully Registered
             <CheckCircleIcon className="w-8" />
           </h3>
         </div>
 
         <div className="p-4 md:p-5 space-y-4">
-          <p className="text-gray-600 dark:text-gray-400 tracking-wide md:text-base lg:text-lg xl:text-xl">
+          <p className="text-gray-600  tracking-wide md:text-base lg:text-lg xl:text-xl">
             You can now log in with your username and password.
           </p>
           <div className="flex gap-5">

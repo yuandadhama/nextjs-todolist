@@ -99,4 +99,11 @@ export async function GET(req: Request) {
   }
 }
 
-export async function DELETE(req: Request) {}
+export async function DELETE(req: Request) {
+  const session = await getServerSession(authOptions);
+
+  console.log(session);
+  return NextResponse.json({
+    info: "test delete api",
+  });
+}

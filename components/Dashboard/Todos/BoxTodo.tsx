@@ -20,14 +20,23 @@ export default function BoxTodo({
   const [deleteToggle, setDeleteToggle] = useState(false);
   const { time, name, description } = todo;
 
+  // function to delete todo
   const handleDelete = async () => {
-    const response = await fetch("");
+    const response = await fetch(
+      "/api/dashboard/todos" +
+        {
+          method: "DELETE",
+        }
+    );
   };
 
   const handleCancelDelete = () => {
-    // Delay the state change to allow the exit animation to play
-    setTimeout(() => setDeleteToggle(false), 200);
+    setDeleteToggle(false);
   };
+
+  window.addEventListener("resize", () => {
+    setDeleteToggle(false);
+  });
 
   return (
     <li className="flex items-center justify-between bg-white shadow-sm rounded-lg p-4 mb-3 hover:shadow-md transition-shadow overflow-hidden w-full">

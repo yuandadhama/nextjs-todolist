@@ -15,7 +15,6 @@ const MainPage = () => {
   const [refreshTodos, setRefreshTodos] = useState(false); // Trigger re-fetch
 
   const handleTodoAdded = () => {
-    console.log("handleTodoAdded is running");
     setRefreshTodos((prev) => !prev);
     setIsModalOpen(false);
   };

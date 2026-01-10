@@ -9,13 +9,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const links = [
-  { name: "Overview", href: "/dashboard/overview", icon: HomeIcon },
+  // { name: "Overview", href: "/dashboard/overview", icon: HomeIcon },
   {
     name: "To-Dos",
     href: "/dashboard/todos",
     icon: ClipboardDocumentCheckIcon,
   },
-  { name: "History", href: "/dashboard/history", icon: ClockIcon },
+  // { name: "History", href: "/dashboard/history", icon: ClockIcon },
 ];
 
 export default function NavLinks() {
