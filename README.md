@@ -1,96 +1,64 @@
 # Todo List App – Full Stack with Next.js
 
-A full stack Todo List web application built as my **first independent full stack project** using Next.js.  
-This project represents an important learning milestone where I combined frontend, backend, authentication, and database integration into a single application.
+A full stack Todo List web application built as my **first independent full stack project** using Next.js. It is a CRUD **Todos** application, where users can manage their **Todos** based on the date they set.
 
-Although the project is **not yet finished**, it is intentionally published to document my learning process and architectural understanding.
+The main goal of this project was to understand how frontend and backend logic work together in a single Next.js application, and to build a solid foundation for more complex full stack projects in the future.
 
 ---
 
 ## 📌 Project Background
 
-This project was started on **January 29, 2025**.  
-Due to personal and external circumstances, I was unable to continue development at that time. However, the project is **planned to be completed** and improved in the future.
+This project was started in **January 2025** and completed in **March 2025**.
 
-Despite its unfinished state, the core concepts and structure reflect my understanding of full stack web development.
+I built this project as a hands-on way to apply what I had learned about **Next.js**, including routing, server components, API routes, and database integration, while also learning how to structure a real-world full stack application.
 
 ---
 
 ## 🛠 Tech Stack
 
 - **Next.js**  
-  Full stack React framework (routing, server-side logic, API routes)
+  Used for routing, server components, and API route handlers to handle both frontend and backend logic in one framework.
 
 - **Tailwind CSS**  
-  Utility-first CSS framework for responsive and clean UI design
+  Utility-first CSS framework used to build a responsive and consistent user interface.
 
 - **MongoDB**  
-  NoSQL database for storing user and todo data
+  NoSQL database used to store user accounts and todo data.
 
 - **Mongoose (ODM)**  
-  Schema-based data modeling and database interaction
+  SUsed to define schemas, validate data, and interact with MongoDB in a structured way.
 
 - **NextAuth.js**  
-  Authentication and session management
+  Implemented authentication, session handling, and protected routes.
 
 - **Framer Motion**  
-  Simple animations (used mainly in the header navigation)
+  Used for small UI animations, mainly in the navigation header, to improve user experience.
 
 ---
 
-## ✨ Features (Current)
+## ✨ Features
 
-- User authentication
-- Create and manage todo items
-- Database integration with MongoDB
-- Basic UI animation using Framer Motion
-- Responsive layout
+- User authentication and session management
+- Create, read, update, and delete todos (CRUD)
+- Todos are filtered and managed based on selected dates
+- MongoDB database integration using Mongoose
+- Responsive UI with Tailwind CSS
+- Simple UI animations using Framer Motion
 
 ---
 
 ## 📚 What I Learned from This Project
 
 - Building a **full stack web application** with Next.js
+- Know how to implement...
 - Connecting and interacting with **MongoDB using Mongoose**
 - Handling **server-side logic and API routes**
 - Managing authentication with **NextAuth**
-- Understanding data flow between frontend and backend
-- Reading documentation and solving problems independently  
-  (with the help of AI and learning resources)
-
----
-
-## 🚧 Project Status
-
-**Status:** In Progress (Paused)
-
-This project is currently **not complete**, but it is not abandoned.  
-I plan to:
-- Refactor code structure
-- Improve authentication flow
-- Add better error handling
-- Complete missing features
-- Enhance UI/UX
-
----
-
-## 🎯 Purpose of This Project
-
-- First hands-on experience building a real **full stack application**
-- Strengthen understanding of backend logic and database interaction
-- Practice problem-solving and self-learning
-- Serve as a foundation for more advanced projects
+- Handling client-side and server-side data flow
 
 ---
 
 ## 📄 Notes
 
 - This project was built during my early full stack learning phase
-- Code quality and structure will be improved as the project evolves
 - The focus was on **understanding concepts**, not perfection
-
----
-
-## 📜 License
-
-This project is intended for learning and portfolio purposes.
