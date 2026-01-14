@@ -3,10 +3,10 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   // Logic to handle GET request for todo with id params.id
-  const { id } = params;
+  const { id } = await params;
   const todo = await Todo.findById(id);
 
   console.log("get todo" + todo);
@@ -28,10 +28,10 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   // Logic to handle PUT request for updating todo with id params.id
-  const { id } = params;
+  const { id } = await params;
   const { name, description, date, time } = await request.json();
 
   await Todo.findByIdAndUpdate(

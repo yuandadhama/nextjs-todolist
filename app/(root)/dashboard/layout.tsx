@@ -6,7 +6,6 @@ import { ReactNode, Suspense } from "react";
 import SkeletonLoader from "@/components/Dashboard/DashboardLoader";
 import DashboardHeader from "@/components/Dashboard/DashboardHeader";
 import NavLinks from "@/components/Dashboard/NavLinks";
-import Link from "next/link";
 import { authOptions } from "@/lib/auth";
 
 const page = async ({ children }: Readonly<{ children: ReactNode }>) => {
