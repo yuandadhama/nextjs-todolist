@@ -2,17 +2,26 @@ import React, { useCallback, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { ITodo } from "@/models/Todo";
 
-const LoadingTodos = dynamic(() => import("./LoadingTodos"));
+const Spinner = dynamic(() => import("./Spinner"));
 const TodoListPage = dynamic(() => import("./TodoList/TodoListPage"));
+
+// THIS TODO LIST SECTION TO DISPLAY TODOS BASED ON SELECTED DATE
+// THE TODO LIST PAGE IS MORE SPECIFIC TO DISPLAY TODOS ON CERTAIN DATE
 
 const TodoList = ({
   refreshTrigger,
   date,
   setDate,
+  onTodoDeleted,
+  showUpdateModal,
+  setToBeUpdatedTodoId,
 }: {
   date: Date;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
   refreshTrigger: boolean;
+  onTodoDeleted: () => void;
+  showUpdateModal: () => void;
+  setToBeUpdatedTodoId: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const [loading, setLoading] = useState(false);
   const [todos, setTodos] = useState<ITodo[]>([]);
@@ -26,32 +35,29 @@ const TodoList = ({
     return `${year}-${month}-${day}`;
   };
 
-  const fetchTodos = useCallback(async () => {
-    setLoading(true);
-    try {
-      const formattedDate = formatDateForAPI(date);
-      const response = await fetch(
-        `/api/dashboard/todos?date=${formattedDate}`
-      );
-      const data = await response.json();
-
-      if (response.ok) {
-        const sortedTodos = data.sort((a: ITodo, b: ITodo) =>
-          a.time.localeCompare(b.time)
-        );
-        setTodos(sortedTodos);
-      } else {
-        setErrorMsg(data.error);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    setLoading(false);
-  }, [date]);
-
   useEffect(() => {
+    async function fetchTodos() {
+      setLoading(true);
+      try {
+        const formattedDate = formatDateForAPI(date);
+        const res = await fetch(`/api/dashboard/todos?date=${formattedDate}`);
+        const data = await res.json();
+
+        if (res.ok) {
+          setTodos(
+            data.sort((a: ITodo, b: ITodo) => a.time.localeCompare(b.time))
+          );
+        } else {
+          setErrorMsg("Failed to fetch todos");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+      setLoading(false);
+    }
+
     fetchTodos();
-  }, [fetchTodos, refreshTrigger]);
+  }, [date, refreshTrigger]);
 
   const goToPreviousDate = useCallback(() => {
     setLoading(true);
@@ -105,7 +111,16 @@ const TodoList = ({
       </div>
 
       <div className="h-[500px] overflow-y-auto space-y-4 mt-4">
-        {loading ? <LoadingTodos /> : <TodoListPage todos={todos} />}
+        {loading ? (
+          <Spinner />
+        ) : (
+          <TodoListPage
+            todos={todos}
+            onTodoDeleted={onTodoDeleted}
+            showUpdateModal={showUpdateModal}
+            setToBeUpdatedTodoId={setToBeUpdatedTodoId}
+          />
+        )}
       </div>
       <p className="text-red-600 text-center">{errorMsg}</p>
     </>

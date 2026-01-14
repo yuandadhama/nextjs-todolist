@@ -4,12 +4,14 @@ import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ITodoToDisplay } from "../TodoList/TodoListPage";
 import { XMarkIcon } from "@heroicons/react/16/solid";
+import { deleteTodo } from "@/actions/todo";
 
 interface InfoTodoProps {
   todoToDisplay: ITodoToDisplay;
   onClose: () => void;
-  onUpdate?: () => void;
-  onDelete?: () => void;
+  onTodoDeleted: () => void;
+  showUpdateModal: () => void;
+  // setToBeUpdatedTodoId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const backdropVariants = {
@@ -40,10 +42,11 @@ const modalVariants = {
 const InfoTodo: React.FC<InfoTodoProps> = ({
   todoToDisplay,
   onClose,
-  onUpdate,
-  onDelete,
+  onTodoDeleted,
+  showUpdateModal,
+  // setToBeUpdatedTodoId,
 }) => {
-  const { name, description, time, date } = todoToDisplay;
+  const { _id, name, description, time, date } = todoToDisplay;
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -51,6 +54,18 @@ const InfoTodo: React.FC<InfoTodoProps> = ({
       document.body.style.overflow = "auto";
     };
   }, []);
+
+  const handleDelete = (id: string) => {
+    deleteTodo(id);
+    onClose();
+    onTodoDeleted();
+  };
+
+  const handleUpdate = () => {
+    // setToBeUpdatedTodoId(_id!);
+    showUpdateModal();
+    onClose();
+  };
 
   return (
     <AnimatePresence>
@@ -105,7 +120,7 @@ const InfoTodo: React.FC<InfoTodoProps> = ({
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={onUpdate}
+              onClick={() => handleUpdate()}
               className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded shadow transition duration-200"
             >
               Update
@@ -114,7 +129,7 @@ const InfoTodo: React.FC<InfoTodoProps> = ({
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={onDelete}
+              onClick={() => handleDelete(_id!)}
               className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded shadow transition duration-200"
             >
               Delete

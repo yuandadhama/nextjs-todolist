@@ -8,18 +8,31 @@ const InfoTodo = dynamic(() => import("../BoxTodo/InfoTodo"), {
 });
 
 export interface ITodoToDisplay {
+  _id?: string;
   time: string;
   date: string;
   name: string;
   description: string;
 }
-const TodoListPage = ({ todos }: { todos: ITodo[] }) => {
+const TodoListPage = ({
+  todos,
+  onTodoDeleted,
+  showUpdateModal,
+  setToBeUpdatedTodoId,
+}: {
+  todos: ITodo[];
+  onTodoDeleted: () => void;
+  showUpdateModal: () => void;
+  setToBeUpdatedTodoId: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const [todoToDisplay, setTodoToDisplay] = useState<ITodoToDisplay | null>(
     null
   );
 
   const handleOpenModal = (todo: ITodo) => {
+    setToBeUpdatedTodoId(todo._id!);
     setTodoToDisplay({
+      _id: todo._id,
       time: todo.time,
       date: todo.date,
       name: todo.name,
@@ -35,14 +48,27 @@ const TodoListPage = ({ todos }: { todos: ITodo[] }) => {
     <>
       {/* Modal - separate from scrollable content */}
       {todoToDisplay && (
-        <InfoTodo todoToDisplay={todoToDisplay} onClose={handleCloseModal} />
+        <InfoTodo
+          todoToDisplay={todoToDisplay}
+          onClose={handleCloseModal}
+          onTodoDeleted={onTodoDeleted}
+          showUpdateModal={showUpdateModal}
+          // setToBeUpdatedTodoId={setToBeUpdatedTodoId}
+        />
       )}
 
       <div className="h-[500px] overflow-y-auto space-y-4">
         {todos.length > 0 ? (
           <ul>
             {todos.map((todo, i) => (
-              <BoxTodo key={i} todo={todo} onInfoClick={handleOpenModal} />
+              <BoxTodo
+                setToBeUpdatedTodoId={setToBeUpdatedTodoId}
+                key={i}
+                todo={todo}
+                onInfoClick={handleOpenModal}
+                onTodoDeleted={onTodoDeleted}
+                showUpdateModal={showUpdateModal}
+              />
             ))}
           </ul>
         ) : (

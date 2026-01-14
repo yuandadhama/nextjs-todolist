@@ -1,13 +1,13 @@
 import { getServerSession } from "next-auth";
 import connectDB from "@/lib/mongodb";
 import User from "@/models/User";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { ReactNode, Suspense } from "react";
 import SkeletonLoader from "@/components/Dashboard/DashboardLoader";
 import DashboardHeader from "@/components/Dashboard/DashboardHeader";
 import NavLinks from "@/components/Dashboard/NavLinks";
 import Link from "next/link";
+import { authOptions } from "@/lib/auth";
 
 const page = async ({ children }: Readonly<{ children: ReactNode }>) => {
   // Get the session from the server
@@ -41,14 +41,6 @@ const page = async ({ children }: Readonly<{ children: ReactNode }>) => {
             </div>
             <div className="w-full bg-white shadow-md rounded-b-md md:rounded-tr-md p-3 text-gray-800 h-auto pt-5 ">
               {children}
-              <div className="text-right w-full">
-                <Link
-                  href="/report"
-                  className="text-blue-600 text-sm hover:text-blue-300 transition-all duration-300 ease-out"
-                >
-                  having an issue?
-                </Link>
-              </div>
             </div>
           </div>
         </div>

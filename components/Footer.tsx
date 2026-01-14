@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 const Footer = async () => {
   const session = await getServerSession(authOptions);
@@ -40,11 +40,6 @@ const Footer = async () => {
               <li>
                 <Link href="/login" className="link-footer">
                   Login
-                </Link>
-              </li>
-              <li>
-                <Link href="/report" className="link-footer">
-                  Report
                 </Link>
               </li>
             </ul>

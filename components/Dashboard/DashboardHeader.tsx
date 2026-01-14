@@ -26,7 +26,8 @@ const DashboardHeader: React.FC<UserProps> = ({ user }) => {
       </div>
 
       <p className="mt-3 text-gray-500 text-sm md:text-base lg:text-lg">
-        Manage your tasks, track progress, and stay productive.
+        Manage your tasks, plan your day, and stay productive. Organize your
+        todos with ease!
       </p>
     </div>
   );

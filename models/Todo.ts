@@ -1,6 +1,7 @@
 import mongoose, { Schema, Model } from "mongoose";
 
 export interface ITodo {
+  _id?: string;
   name: string;
   description: string;
   time: string; // format hh:mm

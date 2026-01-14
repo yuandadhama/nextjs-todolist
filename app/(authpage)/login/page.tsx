@@ -42,7 +42,7 @@ const Page = () => {
           }
         } else {
           setIsSuccess(true);
-          router.push("/dashboard/overview"); // Redirect on success
+          router.push("/dashboard/todos"); // Redirect on success
         }
       }
     } catch {
@@ -58,7 +58,7 @@ const Page = () => {
         <HomeLink />
         <div className="w-full max-w-md relative flex flex-col md:max-w-lg lg:max-w-xl xl:max-w-2xl">
           <HeaderLogin />
-         
+
           {isSuccess ? (
             <Redirecting />
           ) : (

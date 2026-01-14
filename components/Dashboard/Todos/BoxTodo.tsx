@@ -5,29 +5,30 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
-
-const DeleteConfirm = dynamic(import("./BoxTodo/DeleteConfirm"));
+import { deleteTodo } from "@/actions/todo";
 
 export default function BoxTodo({
   todo,
   onInfoClick,
+  onTodoDeleted,
+  showUpdateModal,
+  setToBeUpdatedTodoId,
 }: {
   todo: ITodo;
   onInfoClick: (todo: ITodo) => void;
+  onTodoDeleted: () => void;
+  showUpdateModal: () => void;
+  setToBeUpdatedTodoId: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const [deleteToggle, setDeleteToggle] = useState(false);
-  const { time, name, description } = todo;
+  const { time, name, description, _id } = todo;
 
   // function to delete todo
   const handleDelete = async () => {
-    const response = await fetch(
-      "/api/dashboard/todos" +
-        {
-          method: "DELETE",
-        }
-    );
+    deleteTodo(_id!);
+    onTodoDeleted();
+    console.log("(client) Deleting todo with id:", _id);
   };
 
   const handleCancelDelete = () => {
@@ -37,6 +38,11 @@ export default function BoxTodo({
   window.addEventListener("resize", () => {
     setDeleteToggle(false);
   });
+
+  const handleUpdatebuttonClick = () => {
+    setToBeUpdatedTodoId(_id!);
+    showUpdateModal();
+  };
 
   return (
     <li className="flex items-center justify-between bg-white shadow-sm rounded-lg p-4 mb-3 hover:shadow-md transition-shadow overflow-hidden w-full">
@@ -92,7 +98,10 @@ export default function BoxTodo({
               transition={{ duration: 0.2 }}
               className="flex gap-4"
             >
-              <button className="p-1 rounded-md hidden hover:text-gray-700 text-gray-600 transition-colors md:flex lg:flex flex-row">
+              <button
+                className="p-1 rounded-md hidden hover:text-gray-700 text-gray-600 transition-colors md:flex lg:flex flex-row"
+                onClick={handleUpdatebuttonClick}
+              >
                 <PencilSquareIcon className="w-5 h-5" />
                 <p>Update</p>
               </button>

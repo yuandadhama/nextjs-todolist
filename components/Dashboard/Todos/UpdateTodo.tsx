@@ -1,14 +1,18 @@
+import { ITodo } from "@/models/Todo";
 import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
+import Spinner from "./Spinner";
 const SuccessModal = dynamic(() => import("./AddTodo/SuccessModal"));
 
-const AddTodo = ({
+const UpdateTodo = ({
+  toBeUpdatedTodoId,
   onClose,
-  onTodoAdded,
+  onTodoUpdated,
   setDate,
 }: {
+  toBeUpdatedTodoId: string;
   onClose: () => void;
-  onTodoAdded: () => void;
+  onTodoUpdated: () => void;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
 }) => {
   const [name, setName] = useState("");
@@ -17,6 +21,8 @@ const AddTodo = ({
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  const [isFetching, setIsFetching] = useState(false);
 
   const formatDateForInput = (date: Date) => {
     const pad = (num: number) => String(num).padStart(2, "0");
@@ -33,38 +39,65 @@ const AddTodo = ({
     };
   }, []);
 
+  useEffect(() => {
+    const fetchTodo = async () => {
+      try {
+        setIsFetching(true);
+        const response = await fetch(
+          `/api/dashboard/todos/${toBeUpdatedTodoId}`
+        );
+        if (!response.ok) throw new Error("failed to fetch todo data by id");
+
+        const todo = (await response.json()) as ITodo;
+        const { name, description, date, time } = todo;
+        setName(name);
+        setDescription(description);
+        setDateTime(date + "T" + time);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setIsFetching(false);
+      }
+    };
+
+    fetchTodo();
+  }, [toBeUpdatedTodoId]);
+
   const handleSubmit = async () => {
     setLoading(true);
     setMessage("");
 
-    const response = await fetch("/api/dashboard/todos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        description,
-        dateTime,
-      }),
-    });
-
-    const { success, message } = await response.json();
-    setIsSuccess(success);
-
-    if (success) {
-      console.log("todo successfully added");
+    try {
+      const response = await fetch(
+        `/api/dashboard/todos/${toBeUpdatedTodoId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            description,
+            date: dateTime.split("T")[0],
+            time: dateTime.split("T")[1],
+          }),
+        }
+      );
+      const { message } = await response.json();
+      setIsSuccess(true);
       setMessage(message);
+    } catch (error) {
+      console.error("Error updating todo:", error);
+      setMessage("Failed to update todo. Please try again.");
+    } finally {
       setLoading(false);
-      return;
     }
-    console.log("Failed to add todo");
   };
 
   const closeAfterSuccess = () => {
     setDate(new Date(dateTime));
     onClose();
-    onTodoAdded();
+    onTodoUpdated();
   };
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center px-6 z-10">
@@ -74,7 +107,7 @@ const AddTodo = ({
         } bg-white p-6 rounded-lg shadow-lg w-full max-w-[400px]`}
       >
         <h2 className=" text-lg font-semibold text-gray-700 mb-4 text-center">
-          📝 Adding Todo
+          📝 Update Todo
         </h2>
 
         {isSuccess ? (
@@ -85,6 +118,8 @@ const AddTodo = ({
             dateTime={dateTime}
             closeAfterSuccess={closeAfterSuccess}
           />
+        ) : isFetching ? (
+          <Spinner />
         ) : (
           <>
             <div className="mb-3">
@@ -157,7 +192,7 @@ const AddTodo = ({
                 {loading ? (
                   <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
                 ) : (
-                  "Add"
+                  "Update"
                 )}
               </button>
             </div>
@@ -168,4 +203,4 @@ const AddTodo = ({
   );
 };
 
-export default AddTodo;
+export default UpdateTodo;

@@ -1,9 +1,9 @@
 import connectDB from "@/lib/mongodb";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { authOptions } from "../../auth/[...nextauth]/route";
 import User from "@/models/User";
 import Todo from "@/models/Todo";
+import { authOptions } from "@/lib/auth";
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
@@ -97,13 +97,4 @@ export async function GET(req: Request) {
       success: false,
     });
   }
-}
-
-export async function DELETE(req: Request) {
-  const session = await getServerSession(authOptions);
-
-  console.log(session);
-  return NextResponse.json({
-    info: "test delete api",
-  });
 }

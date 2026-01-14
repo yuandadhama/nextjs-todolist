@@ -2,34 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+li {
+  margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+ul {
+  margin: 0;
 }
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-  li {
-    margin: 0;
-  }
-  
-  ul {
-    margin: 0;
-  }
 
 @layer components {
-
   .btn-login-out {
     @apply bg-white text-blue-500 hover:bg-blue-200 px-3 py-2 rounded-md transition-all duration-300 ease-in-out shadow-md text-sm flex items-center sm:text-base md:text-lg  md:py-3;
   }
