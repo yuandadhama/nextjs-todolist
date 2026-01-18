@@ -53,10 +53,10 @@ const Page = () => {
 
   return (
     <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white h-screen flex items-center flex-col">
-      <div className="mt-2 p-4 md:mt-8">
+      <div className="mt-2 p-4">
         <HomeLink />
-        <div className="w-full max-w-md relative flex flex-col md:max-w-lg lg:max-w-xl xl:max-w-2xl">
-          <h2 className="text-center text-lg font-bold mb-1 text-white md:text-xl md:mb-3 lg:text-2xl xl:text-3xl">
+        <div className="w-full max-w-md relative flex flex-col">
+          <h2 className="text-center text-lg font-bold mb-1 text-white ">
             Register
           </h2>
 
@@ -64,13 +64,13 @@ const Page = () => {
             <SuccessfullyRegister setIsSuccess={setIsSuccess} />
           ) : (
             <>
-              <p className="text-center text-xs text-white mb-6 md:text-base lg:text-xl xl:text-2xl">
+              <p className="text-center text-xs text-white mb-6">
                 Join us today to manage your tasks efficiently and stay
                 organized. Registration is quick and easy!
               </p>
 
               <form
-                className="bg-white shadow-md rounded px-4 py-6 mb-4 sm:px-6 md:px-7 lg:px-8 xl:px-10 xl:py-8"
+                className="bg-white shadow-md rounded px-4 py-6 mb-4 sm:px-6"
                 onSubmit={handleSubmit}
               >
                 <FormInput
@@ -118,7 +118,7 @@ const Page = () => {
             </>
           )}
 
-          <p className="text-center text-xs md:text-base lg:text-lg">
+          <p className="text-center text-xs ">
             &copy; {new Date().getFullYear()} Simple TodoList. All rights
             reserved.
           </p>

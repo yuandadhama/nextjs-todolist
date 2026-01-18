@@ -21,15 +21,12 @@ export function FormInput({
   };
   return (
     <div className="mb-4">
-      <label
-        className="block text-gray-700 text-sm font-bold md:text-base lg:text-lg xl:text-xl"
-        htmlFor={label}
-      >
+      <label className="block text-gray-700 text-sm font-bold " htmlFor={label}>
         {label}
       </label>
       <div className="relative">
         <input
-          className="shadow border rounded w-full p-2 text-gray-700 leading-3 focus:outline-none focus:shadow-outline text-xs md:text-sm lg:text-base xl:text-lg"
+          className="shadow border rounded w-full p-2 text-gray-700 leading-3 focus:outline-none focus:shadow-outline text-xs"
           id={label}
           type={
             type === "password" ? (passwordVisible ? "text" : "password") : type
@@ -45,9 +42,9 @@ export function FormInput({
             onClick={togglePasswordVisibility}
           >
             {passwordVisible ? (
-              <EyeIcon className="w-5 md:w-6 lg:w-7 xl:w-8" />
+              <EyeIcon className="w-5" />
             ) : (
-              <EyeSlashIcon className="w-5 md:w-6 lg:w-7 xl:w-8" />
+              <EyeSlashIcon className="w-5" />
             )}
           </button>
         ) : (

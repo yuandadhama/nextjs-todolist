@@ -35,10 +35,7 @@ const page = async ({ children }: Readonly<{ children: ReactNode }>) => {
             <DashboardHeader user={user} />
           </div>
           <div className="w-auto rounded-lg shadow-md text-gray-800 md:w-full">
-            <div className="flex flex-row md:justify-start">
-              <NavLinks />
-            </div>
-            <div className="w-full bg-white shadow-md rounded-b-md md:rounded-tr-md p-3 text-gray-800 h-auto pt-5 ">
+            <div className="w-full bg-white shadow-md rounded p-3 text-gray-800 h-auto pt-5 ">
               {children}
             </div>
           </div>
