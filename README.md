@@ -26,7 +26,7 @@ I built this project as a hands-on way to apply what I had learned about **Next.
   NoSQL database used to store user accounts and todo data.
 
 - **Mongoose (ODM)**  
-  SUsed to define schemas, validate data, and interact with MongoDB in a structured way.
+  Used to define schemas, validate data, and interact with MongoDB in a structured way.
 
 - **NextAuth.js**  
   Implemented authentication, session handling, and protected routes.
